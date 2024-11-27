@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-<h1 class="">Home page</h1>
+<h1 class="">Productos page</h1>
 
 <div class="container">
     <!-- Formulario de fechas -->
@@ -73,7 +73,7 @@
                     }],
                     chart: {
                         height: 350,
-                        type: 'bar',
+                        type: 'line',
                     },
                     title: {
                         text: 'Top 10 Productos Más Vendidos',
@@ -110,12 +110,6 @@
                             }
                         }
                     },
-                    noData: {
-                        text: 'No hay informacion'
-                    },
-                    tooltip: {
-                        enabled: true
-                    }
                 };
 
                 chart = new ApexCharts(chartContainer, options);

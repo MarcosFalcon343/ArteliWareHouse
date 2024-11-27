@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ Route::get("/logout", [AuthController::class, "logout"])->name("logout");
 
 Route::group(["middleware" => "auth"], function () {
     Route::get("/", [IndexController::class, "index"])->name("index");
+    Route::get("/productos", [ProductosController::class, "index"])->name("productos");
 });
 
 
