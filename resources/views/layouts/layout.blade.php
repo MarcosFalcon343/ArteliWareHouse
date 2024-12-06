@@ -35,13 +35,13 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="{{route("departamentos.index")}}" class="nav-link text-white">
                     <i class="bi bi-grid"></i>
                     Departamentos
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="{{route('categorias.index')}}" class="nav-link text-white">
                     <i class="bi bi-tags"></i>
                     Categorias
                 </a>

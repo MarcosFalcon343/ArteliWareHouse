@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', 'departamentos')
+@section('title', 'categorias')
 
 @section('head')
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -11,7 +11,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center">
-    <h1>Reportes departamento</h1>
+    <h1>Reportes categorias</h1>
     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#dateModal">
         <i class="bi bi-funnel"></i>
     </button>
@@ -117,5 +117,5 @@
 @endsection
 
 @section('scripts')
-@vite('resources/js/graficosDepartamentos.js')
+@vite('resources/js/graficosCategorias.js')
 @endsection

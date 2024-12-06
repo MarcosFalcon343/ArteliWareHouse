@@ -75,22 +75,22 @@ async function generarGraficoGanancia(fechaInicio, fechaFin) {
     }
     try {
         const response = await fetch(
-            `/api/reportes/departamentos/ganancia?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `/api/reportes/categoria/ganancia?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
         );
         const data = await response.json();
-        var departamentos = data.map((item) => item.Nombre);
-        var GananciaTotales = data.map((item) => item.TotalGanancia);
+        var categorias = data.map((item) => item.Nombre);
+        var GananciaTotales = data.map((item) => item.Ganancias);
 
         GraficoGanancia = generarGraficoDeBarra(
             document.getElementById("chartGanancia"),
-            departamentos,
+            categorias,
             "Cantidad Total",
             GananciaTotales,
-            "Ranking de Ganancias por Departamento",
+            "Ranking de Ganancias por Categoría",
             fechaInicio,
             fechaFin,
-            "#4FC3F7",
-            "#0288D1"
+            "#81C14B",
+            "#204E4A"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -105,19 +105,19 @@ async function generarGraficoTransacciones(fechaInicio, fechaFin) {
     }
     try {
         const response = await fetch(
-            `/api/reportes/departamentos/transacciones?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `/api/reportes/categoria/transacciones?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
         );
         const data = await response.json();
-        var departamentos = data.map((item) => item.Nombre);
+        var categorias = data.map((item) => item.Nombre);
         var TotalTransacciones = data.map((item) =>
-            parseInt(item.TotalTransacciones, 10)
+            parseInt(item.Transacciones, 10)
         );
 
         GraficoTransacciones = generarGraficoDePie(
             document.getElementById("chartTransaccion"),
-            departamentos,
+            categorias,
             TotalTransacciones,
-            "Procentaje de transacciones por departamento",
+            "Porcentaje de transacciones por categoría",
             fechaInicio,
             fechaFin
         );
@@ -134,27 +134,24 @@ async function generarGraficoCantidad(fechaInicio, fechaFin) {
     }
     try {
         const response = await fetch(
-            `/api/reportes/departamentos/cantidad-productos?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `/api/reportes/categoria/cantidad-productos?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
         );
         const data = await response.json();
-        var departamentos = data.map((item) => item.Nombre);
+        var categorias = data.map((item) => item.Nombre);
         var TotalCantidadProductos = data.map((item) =>
-            parseInt(item.TotalCantidadProductos, 10)
+            parseInt(item.CantidadProductos, 10)
         );
-        // var Total = data.reduce((total, item) => {
-        //     return total + parseInt(item.TotalCantidadProductos, 10); // Suma de los productos vendidos
-        // }, 0);
 
         GraficoCantidad = generarGraficoDeBarra(
             document.getElementById("chartCantidad"),
-            departamentos,
+            categorias,
             "Cantidad Total",
             TotalCantidadProductos,
-            "Cantidad de productos vendidos por Departamento",
+            "Cantidad de productos vendidos por Categoría",
             fechaInicio,
             fechaFin,
-            "#A1887F",
-            "#5D4037"
+            "#FFA726",
+            "#8D6E63"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -169,25 +166,22 @@ async function generarGraficoIngreso(fechaInicio, fechaFin) {
     }
     try {
         const response = await fetch(
-            `/api/reportes/departamentos/ingreso?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `/api/reportes/categoria/ingreso?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
         );
         const data = await response.json();
-        var departamentos = data.map((item) => item.Nombre);
-        var TotalIngreso = data.map((item) => parseInt(item.TotalIngreso, 10));
-        // var Total = data.reduce((total, item) => {
-        //     return total + parseInt(item.TotalCantidadProductos, 10); // Suma de los productos vendidos
-        // }, 0);
+        var categorias = data.map((item) => item.Nombre);
+        var TotalIngreso = data.map((item) => parseInt(item.Ingreso, 10));
 
         GraficoIngreso = generarGraficoDeBarra(
             document.getElementById("chartIngresos"),
-            departamentos,
+            categorias,
             "Ingreso Total",
             TotalIngreso,
-            "Monto total de ingresos por Departamento",
+            "Monto total de ingresos por Categoría",
             fechaInicio,
             fechaFin,
-            "#E57373",
-            "#C62828"
+            "#BA68C8",
+            "#6A1B9A"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -202,22 +196,22 @@ async function generarGraficoVentas(fechaInicio, fechaFin) {
     }
     try {
         const response = await fetch(
-            `/api/reportes/departamentos/ventas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+            `/api/reportes/categoria/ventas?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
         );
         const data = await response.json();
-        var departamentos = data.map((item) => item.Nombre);
-        var TotalVentas = data.map((item) => parseInt(item.TotalVentas, 10));
+        var categorias = data.map((item) => item.Nombre);
+        var TotalVentas = data.map((item) => parseInt(item.Ventas, 10));
 
         GraficoVentas = generarGraficoDeBarra(
             document.getElementById("chartVentas"),
-            departamentos,
+            categorias,
             "Ventas Total",
             TotalVentas,
-            "Monto total de ventas por Departamento",
+            "Monto total de ventas por Categoría",
             fechaInicio,
             fechaFin,
-            "#FFB74D",
-            "#D84315"
+            "#64B5F6",
+            "#37474F"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);

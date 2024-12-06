@@ -79,10 +79,16 @@ async function generarGraficoGanancia(IdProducto) {
             parseInt(item.Ganancia),
         ]);
 
+        const acumulado = datosFormateados.reduce(
+            (acc, item) => acc + item[1],
+            0
+        );
+
         GraficoGanancia = generarGraficoDeArea(
             document.getElementById("chartGanancia"),
             datosFormateados,
             "Ganancia",
+            acumulado,
             "Monto de ganancia del Producto Historico",
             "#9e0606"
         );
@@ -114,10 +120,16 @@ async function generarGraficoCantidad(IdProducto) {
             parseInt(item.Cantidad),
         ]);
 
+        const acumulado = datosFormateados.reduce(
+            (acc, item) => acc + item[1],
+            0
+        );
+
         GraficoCantidad = generarGraficoDeArea(
             document.getElementById("chartCantidad"),
             datosFormateados,
             "Cantidad",
+            acumulado,
             "Cantidad de Productos Vendidos Historico",
             "#00A3E0"
         );
@@ -143,10 +155,16 @@ async function generarGraficoIngreso(IdProducto) {
             parseInt(item.Ingreso),
         ]);
 
+        const acumulado = datosFormateados.reduce(
+            (acc, item) => acc + item[1],
+            0
+        );
+
         GraficoIngreso = generarGraficoDeArea(
             document.getElementById("chartIngreso"),
             datosFormateados,
             "Ingreso",
+            acumulado,
             "Monto de ingreso del producto Historico",
             "#008000"
         );
@@ -159,6 +177,7 @@ function generarGraficoDeArea(
     contenedorGrafico,
     datos,
     datosLabel,
+    acumulado,
     tituloGrafico,
     color
 ) {
@@ -238,12 +257,20 @@ function generarGraficoDeArea(
             },
         },
         title: {
+            text: `$ ${acumulado.toLocaleString("es-MX")} MXN`,
+            align: "left",
+            style: {
+                fontSize: "25px",
+                fontWeight: "bold",
+                color: "#333",
+            },
+        },
+        subtitle: {
             text: tituloGrafico,
             align: "left",
             style: {
-                fontSize: "20px",
-                fontWeight: "bold",
-                color: "#333",
+                fontSize: "16px",
+                color: "#666",
             },
         },
     };

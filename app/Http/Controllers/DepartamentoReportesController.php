@@ -23,7 +23,6 @@ class DepartamentoReportesController extends Controller
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdDepartamento', 'D.Nombre')
             ->orderByDesc('TotalVentas')
-            ->limit(10)
             ->get();
 
         return response()->json($ventasDepartamentos, 200);
@@ -45,7 +44,6 @@ class DepartamentoReportesController extends Controller
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdDepartamento', 'D.Nombre')
             ->orderByDesc('TotalCantidadProductos')
-            ->limit(10)
             ->get();
 
         return response()->json($cantidadProductos, 200);
@@ -67,7 +65,6 @@ class DepartamentoReportesController extends Controller
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdDepartamento', 'D.Nombre')
             ->orderByDesc('TotalGanancia')
-            ->limit(10)
             ->get();
 
         return response()->json($gananciaDepartamentos, 200);
@@ -89,7 +86,6 @@ class DepartamentoReportesController extends Controller
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdDepartamento', 'D.Nombre')
             ->orderByDesc('TotalIngreso')
-            ->limit(10)
             ->get();
 
         return response()->json($ingresoDepartamentos, 200);
@@ -111,7 +107,6 @@ class DepartamentoReportesController extends Controller
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdDepartamento', 'D.Nombre')
             ->orderByDesc('TotalTransacciones')
-            ->limit(10)
             ->get();
 
         return response()->json($transaccionesDepartamentos, 200);
