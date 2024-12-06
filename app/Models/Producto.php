@@ -14,14 +14,21 @@ class Producto extends Model
      *
      * @var string
      */
-    protected $table = 'Productos';
+    protected $table = 'productos';  // En plural y en minúsculas
+
+    /**
+     * Indica el nombre de la clave primaria.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'IdProducto';  // Definimos la clave primaria
 
     /**
      * Indica si el modelo tiene marcas de tiempo (timestamps).
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = false;  // Usamos false ya que los campos 'Fecha_creacion' y 'Fecha_actualizacion' no están manejados automáticamente
 
     /**
      * Definición de las columnas que se pueden asignar masivamente.

@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoriaReportesController;
 use App\Http\Controllers\DepartamentoReportesController;
 use App\Http\Controllers\SucursalReportesController;
 use App\Http\Controllers\MetodoPagoReportesController;
+use App\Http\Controllers\ProductoReporteController;
 
 /*
 |----------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::get('reportes/productos/cantidad', [ProductosReportesController::class, '
 Route::get('reportes/productos/ingreso', [ProductosReportesController::class, 'Ingreso']);
 Route::get('reportes/productos/ganancia', [ProductosReportesController::class, 'Ganancia']);
 Route::get('reportes/productos/descuentos', [ProductosReportesController::class, 'Descuentos']);
+Route::get('data/productos', [ProductosReportesController::class, 'Productos']);
 
 // Rutas de categorías
 Route::get('reportes/categoria/ventas', [CategoriaReportesController::class, 'Ventas']);
@@ -55,3 +57,10 @@ Route::get('reportes/sucursal/ventas-por-hora', [SucursalReportesController::cla
 // Rutas para Métodos de Pago
 Route::get('reportes/metodo-pago/transacciones', [MetodoPagoReportesController::class, 'Transacciones']);
 Route::get('reportes/metodo-pago/monto-recaudado', [MetodoPagoReportesController::class, 'MontoRecaudado']);
+
+// Rutas para Producto
+Route::get('reportes/producto/productos-relacionados-dimension2', [ProductoReporteController::class, 'productosRelacionadosDimension2']);
+Route::get('reportes/producto/productos-relacionados-dimension3', [ProductoReporteController::class, 'productosRelacionadosDimension3']);
+Route::get('reportes/producto/cantidad-historico', [ProductoReporteController::class, 'cantidadHistorico']);
+Route::get('reportes/producto/ingreso-historico', [ProductoReporteController::class, 'IngresoHistorico']);
+Route::get('reportes/producto/ganancia-historico', [ProductoReporteController::class, 'GananciaHistorico']);

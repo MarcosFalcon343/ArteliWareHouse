@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,7 @@ class ProductosReportesController extends Controller
 
         $CantidadProductos = DB::table('ReporteDiarioProductos as R')
             ->join('Productos as P', 'R.IdProducto', '=', 'P.IdProducto')
-            ->select('P.Nombre', DB::raw('SUM(R.Cantidad) as TotalVendido'))
+            ->select('P.IdProducto', 'P.Nombre', DB::raw('SUM(R.Cantidad) as TotalVendido'))
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdProducto', 'P.Nombre')
             ->orderByDesc('TotalVendido')
@@ -40,7 +42,7 @@ class ProductosReportesController extends Controller
 
         $ingreseoProductos = DB::table('ReporteDiarioProductos as R')
             ->join('Productos as P', 'R.IdProducto', '=', 'P.IdProducto')
-            ->select('P.Nombre', DB::raw('SUM(R.Ingreso) as TotalIngreso'))
+            ->select('P.IdProducto', 'P.Nombre', DB::raw('SUM(R.Ingreso) as TotalIngreso'))
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdProducto', 'P.Nombre')
             ->orderByDesc('TotalIngreso')
@@ -62,7 +64,7 @@ class ProductosReportesController extends Controller
 
         $ingreseoProductos = DB::table('ReporteDiarioProductos as R')
             ->join('Productos as P', 'R.IdProducto', '=', 'P.IdProducto')
-            ->select('P.Nombre', DB::raw('SUM(R.Ganancia) as TotalGanancia'))
+            ->select('P.IdProducto', 'P.Nombre', DB::raw('SUM(R.Ganancia) as TotalGanancia'))
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdProducto', 'P.Nombre')
             ->orderByDesc('TotalGanancia')
@@ -84,7 +86,7 @@ class ProductosReportesController extends Controller
 
         $descuentosProductos = DB::table('ReporteDiarioProductos as R')
             ->join('Productos as P', 'R.IdProducto', '=', 'P.IdProducto')
-            ->select('P.Nombre', DB::raw('SUM(R.Descuentos) as TotalDescuento'))
+            ->select('P.IdProducto', 'P.Nombre', DB::raw('SUM(R.Descuentos) as TotalDescuento'))
             ->whereBetween('R.Fecha', [$fechaInicio, $fechaFin])
             ->groupBy('R.IdProducto', 'P.Nombre')
             ->orderByDesc('TotalDescuento')
@@ -92,5 +94,11 @@ class ProductosReportesController extends Controller
             ->get();
 
         return response()->json($descuentosProductos, 200);
+    }
+
+    public function Productos(Request $request)
+    {
+        $Productos = Producto::all(['IdProducto', 'Nombre', 'Precio', 'Costo', 'Descuentos', 'Unidad_de_medida']);
+        return response()->json($Productos, 200);
     }
 }
