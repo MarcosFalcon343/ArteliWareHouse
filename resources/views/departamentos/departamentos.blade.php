@@ -10,12 +10,17 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center">
-    <h1>Reportes departamento</h1>
-    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#dateModal">
-        <i class="bi bi-funnel"></i>
-    </button>
+<div class="sticky-top bg-white p-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="">Reportes Departamento</h1>
+        <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#dateModal">
+            <i class="bi bi-funnel"></i>
+        </button>
+    </div>
+    <h2 id="periodoFechas" class="text-muted text-center fs-4"></h2>
 </div>
+
+
 <!-- Modal -->
 <div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
     <div class="modal-dialog">

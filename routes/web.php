@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\SucursalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::group(["middleware" => "auth"], function () {
     Route::get("/productos/{id}", [ProductosController::class, "show"])->name("productos.show");
     Route::get("/departamentos", [DepartamentosController::class, "index"])->name("departamentos.index");
     Route::get("/categorias", [CategoriasController::class, "index"])->name("categorias.index");
+    Route::get("/sucursales", [SucursalController::class, "index"])->name("sucursales.index");
 });
 
 

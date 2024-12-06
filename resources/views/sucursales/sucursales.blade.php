@@ -1,28 +1,30 @@
 @extends('layouts.layout')
 
-@section('title', 'Home')
+@section('title', 'sucursales')
 
 @section('head')
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 @endsection
 
 @section('content')
 <div class="sticky-top bg-white p-3">
     <div class="d-flex justify-content-between align-items-center">
-        <h1>Reportes generales</h1>
+        <h1>Reportes sucursales</h1>
         <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#dateModal">
             <i class="bi bi-funnel"></i>
         </button>
     </div>
-    <h2 id="periodoFechas" class="text-muted text-center fs-4">ff</h2>
+    <h2 id="periodoFechas" class="text-muted text-center fs-4"></h2>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="dateModalLabel">Selecciona el rango de fechas</h5>
+                <h5 class="modal-title" id="dateModalLabel">Selecciona el rango de fechas y horas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -36,6 +38,14 @@
                             <label for="fechaFin" class="form-label">Fecha Fin:</label>
                             <input type="date" id="fechaFin" class="form-control" required>
                         </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="horaInicio" class="form-label">Hora Inicio:</label>
+                            <input type="time" id="horaInicio" class="form-control" required min="07:00" max="22:00">
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="horaFin" class="form-label">Hora Fin:</label>
+                            <input type="time" id="horaFin" class="form-control" required min="07:00" max="22:00">
+                        </div>
                     </div>
                 </form>
             </div>
@@ -45,79 +55,69 @@
         </div>
     </div>
 </div>
-
 <div class="row">
-    <!-- Primera fila: Monto Metodo Pago y Transacciones Metodo Pago -->
     <div class="col-md-6">
-        <div id="loadingMontoMetodoPago" style="display: none; text-align: center;">
+        <div id="loadingCantidad" style="display: none; text-align: center;">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-            <p>Cargando datos de monto Metodo Pago...</p>
+            <p>Cargando datos de cantidad...</p>
         </div>
-        <div id="chartMontoMetodoPago" style="height: 300px;"></div>
+        <div id="chartCantidad" style="height: 300px;"></div>
     </div>
     <div class="col-md-6">
-        <div id="loadingTransaccionesMetodoPago" style="display: none; text-align: center;">
+        <div id="loadingVentas" style="display: none; text-align: center;">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-            <p>Cargando datos de transacciones Metodo Pago...</p>
+            <p>Cargando datos de ventas...</p>
         </div>
-        <div id="chartTransaccionesMetodoPago" style="height: 300px;"></div>
+        <div id="chartVentas" style="height: 300px;"></div>
     </div>
 </div>
 
 <div class="row">
-    <!-- Segunda fila: Cantidad Productos y Ventas Sucursal -->
-    <div class="col-md-6">
-        <div id="loadingCantidadProductos" style="display: none; text-align: center;">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p>Cargando datos de cantidad productos...</p>
-        </div>
-        <div id="chartCantidadProductos" style="height: 300px;"></div>
-    </div>
-    <div class="col-md-6">
-        <div id="loadingVentasSucursal" style="display: none; text-align: center;">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p>Cargando datos de ventas sucursal...</p>
-        </div>
-        <div id="chartVentasSucursal" style="height: 300px;"></div>
-    </div>
-</div>
-
-<div class="row">
-    <!-- Tercera fila: Ganancia Departamentos -->
+    <!-- Gráficos de Transacciones Hora en una columna -->
     <div class="col-md-12">
-        <div id="loadingGananciaDepartamentos" style="display: none; text-align: center;">
+        <div id="loadingTransaccionesHoras" style="display: none; text-align: center;">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-            <p>Cargando datos de ganancias departamentos...</p>
+            <p>Cargando datos de TransaccionesHoras...</p>
         </div>
-        <div id="chartGananciaDepartaemntos" style="height: 400px;"></div>
+        <div id="chartTransaccionesHoras" style="height: 400px;"></div>
     </div>
 </div>
 
 <div class="row">
-    <!-- Cuarta fila: Ganancia Categorias -->
+    <!-- Gráficos de Ventas Hora en una columna -->
     <div class="col-md-12">
-        <div id="loadingGananciaCategoria" style="display: none; text-align: center;">
+        <div id="loadingVentasHoras" style="display: none; text-align: center;">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
-            <p>Cargando datos de ganancias categorias...</p>
+            <p>Cargando datos de VentasHoras...</p>
         </div>
-        <div id="chartGananciaCategorias" style="height: 400px;"></div>
+        <div id="chartVentasHoras" style="height: 400px;"></div>
     </div>
 </div>
+
+<div class="row">
+    <!-- Gráficos de Productos Hora en una columna -->
+    <div class="col-md-12">
+        <div id="loadingProductosHoras" style="display: none; text-align: center;">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p>Cargando datos de ProductosHoras...</p>
+        </div>
+        <div id="chartProductosHoras" style="height: 400px;"></div>
+    </div>
+</div>
+
 
 @endsection
 
 @section('scripts')
-@vite('resources/js/graficosGenerales.js')
+@vite('resources/js/graficosSucursales.js')
 @endsection

@@ -273,6 +273,14 @@ function generarGraficoDeArea(
                 color: "#666",
             },
         },
+        tooltip: {
+            enabled: true,
+            y: {
+                formatter: function (val) {
+                    return val.toLocaleString("es-MX"); // Mostrar las ventas con dos decimales
+                },
+            },
+        },
     };
 
     const chart = new ApexCharts(contenedorGrafico, options);

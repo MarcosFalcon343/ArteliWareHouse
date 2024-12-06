@@ -10,17 +10,20 @@
 @endsection
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center">
-    <h1>Productos page</h1>
-    <div>
-        <!--Boton para abrir modal con el catalogo de productos-->
-        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#productosModal">
-            <i class="bi bi-search"></i>
-        </button>
-        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#dateModal">
-            <i class="bi bi-funnel"></i>
-        </button>
+<div class=" sticky-top bg-white p-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>Productos page</h1>
+        <div>
+            <!--Boton para abrir modal con el catalogo de productos-->
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#productosModal">
+                <i class="bi bi-search"></i>
+            </button>
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#dateModal">
+                <i class="bi bi-funnel"></i>
+            </button>
+        </div>
     </div>
+    <h2 id="periodoFechas" class="text-muted text-center fs-4">dddd</h2>
 </div>
 
 <!-- Modal para mostrar la tabla -->

@@ -9,8 +9,8 @@ class MetodoPagoReportesController extends Controller
 {
     public function Transacciones(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-12-31');
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
 
         $data = DB::table('metodopagopordia as R')
             ->join('MetodoPago as M', 'R.IdMetodoPago', '=', 'M.IdMetodoPago')
@@ -25,8 +25,8 @@ class MetodoPagoReportesController extends Controller
 
     public function MontoRecaudado(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-01-31');
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
 
         $data = DB::table('metodopagopordia as R')
             ->join('MetodoPago as M', 'R.IdMetodoPago', '=', 'M.IdMetodoPago')

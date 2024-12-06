@@ -9,8 +9,8 @@ class SucursalReportesController extends Controller
 {
     public function NumeroProductosVendidos(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-01-01');
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
 
         $data = DB::table('reportediariosucursal as R')
             ->join('Sucursales as S', 'R.NoSucursal', '=', 'S.NoSucursal')
@@ -26,8 +26,8 @@ class SucursalReportesController extends Controller
 
     public function TotalVentas(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-01-31');
+        $fechaInicio = $request->input('fechaInicio');
+        $fechaFin = $request->input('fechaFin');
 
         $data = DB::table('reportediariosucursal as R')
             ->join('Sucursales as S', 'R.NoSucursal', '=', 'S.NoSucursal')
@@ -43,10 +43,10 @@ class SucursalReportesController extends Controller
 
     public function CantidadProductosPorHora(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-01-31');
-        $horaInicio = $request->input('hora_inicio', '07:00');
-        $horaFin = $request->input('hora_fin', '22:00');
+        $fechaInicio = $request->input('fechaInicio', );
+        $fechaFin = $request->input('fechaFin');
+        $horaInicio = $request->input('horaInicio');
+        $horaFin = $request->input('horaFin');
 
         $data = DB::table('reportehorasucursal as R')
             ->join('Sucursales as S', 'R.NoSucursal', '=', 'S.NoSucursal')
@@ -63,10 +63,10 @@ class SucursalReportesController extends Controller
 
     public function TransaccionesPorHora(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-01-31');
-        $horaInicio = $request->input('hora_inicio', '07:00');
-        $horaFin = $request->input('hora_fin', '22:00');
+        $fechaInicio = $request->input('fechaInicio', );
+        $fechaFin = $request->input('fechaFin');
+        $horaInicio = $request->input('horaInicio');
+        $horaFin = $request->input('horaFin');
 
         $data = DB::table('reportehorasucursal as R')
             ->join('Sucursales as S', 'R.NoSucursal', '=', 'S.NoSucursal')
@@ -83,10 +83,10 @@ class SucursalReportesController extends Controller
 
     public function VentasPorHora(Request $request)
     {
-        $fechaInicio = $request->input('fecha_inicio', '2023-01-01');
-        $fechaFin = $request->input('fecha_fin', '2023-01-31');
-        $horaInicio = $request->input('hora_inicio', '07:00');
-        $horaFin = $request->input('hora_fin', '22:00');
+        $fechaInicio = $request->input('fechaInicio', );
+        $fechaFin = $request->input('fechaFin');
+        $horaInicio = $request->input('horaInicio');
+        $horaFin = $request->input('horaFin');
 
         $data = DB::table('reportehorasucursal as R')
             ->join('Sucursales as S', 'R.NoSucursal', '=', 'S.NoSucursal')

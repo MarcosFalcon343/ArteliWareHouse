@@ -44,7 +44,6 @@ Route::get('reportes/departamentos/cantidad-productos', [DepartamentoReportesCon
 Route::get('reportes/departamentos/ganancia', [DepartamentoReportesController::class, 'Ganancia']);
 Route::get('reportes/departamentos/ingreso', [DepartamentoReportesController::class, 'Ingreso']);
 Route::get('reportes/departamentos/transacciones', [DepartamentoReportesController::class, 'Transacciones']);
-// Falta mayor productos por departamento
 
 
 // Rutas para Sucursales

@@ -11,6 +11,8 @@ let GraficoVentas;
 document.addEventListener("DOMContentLoaded", () => {
     const fechaInicio = document.getElementById("fechaInicio").value;
     const fechaFin = document.getElementById("fechaFin").value;
+
+    actualizarPeriodoFechas(fechaInicio, fechaFin);
     generarGraficos(fechaInicio, fechaFin);
 });
 
@@ -21,11 +23,20 @@ document.getElementById("dateForm").addEventListener("submit", function (e) {
     const fechaFin = document.getElementById("fechaFin").value;
 
     if (fechaInicio && fechaFin) {
+        // Actualiza el texto del periodo
+        actualizarPeriodoFechas(fechaInicio, fechaFin);
+
+        // Generar gráficos
         generarGraficos(fechaInicio, fechaFin);
     } else {
         alert("Por favor selecciona ambas fechas.");
     }
 });
+
+function actualizarPeriodoFechas(fechaInicio, fechaFin) {
+    const h2Periodo = document.getElementById("periodoFechas");
+    h2Periodo.textContent = `Periodo: ${fechaInicio} al ${fechaFin}`;
+}
 
 async function generarGraficos(fechaInicio, fechaFin) {
     try {
@@ -79,18 +90,24 @@ async function generarGraficoGanancia(fechaInicio, fechaFin) {
         );
         const data = await response.json();
         var departamentos = data.map((item) => item.Nombre);
-        var GananciaTotales = data.map((item) => item.TotalGanancia);
+        var GananciaTotales = data.map((item) =>
+            parseFloat(item.TotalGanancia)
+        );
+
+        var acumulado = GananciaTotales.reduce(
+            (total, valor) => total + valor,
+            0
+        );
 
         GraficoGanancia = generarGraficoDeBarra(
             document.getElementById("chartGanancia"),
             departamentos,
             "Cantidad Total",
             GananciaTotales,
-            "Ranking de Ganancias por Departamento",
-            fechaInicio,
-            fechaFin,
+            `Monto acumulado: $ ${acumulado.toLocaleString("es-MX")} MXN`,
             "#4FC3F7",
-            "#0288D1"
+            "#0288D1",
+            "Ranking de Ganancias por Departamento"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -112,14 +129,17 @@ async function generarGraficoTransacciones(fechaInicio, fechaFin) {
         var TotalTransacciones = data.map((item) =>
             parseInt(item.TotalTransacciones, 10)
         );
+        var acumulado = TotalTransacciones.reduce(
+            (total, valor) => total + valor,
+            0
+        );
 
         GraficoTransacciones = generarGraficoDePie(
             document.getElementById("chartTransaccion"),
             departamentos,
             TotalTransacciones,
-            "Procentaje de transacciones por departamento",
-            fechaInicio,
-            fechaFin
+            `Total de transacciones: ${acumulado.toLocaleString("es-MX")}`,
+            "Procentaje de transacciones por departamento"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -141,20 +161,20 @@ async function generarGraficoCantidad(fechaInicio, fechaFin) {
         var TotalCantidadProductos = data.map((item) =>
             parseInt(item.TotalCantidadProductos, 10)
         );
-        // var Total = data.reduce((total, item) => {
-        //     return total + parseInt(item.TotalCantidadProductos, 10); // Suma de los productos vendidos
-        // }, 0);
+        var acumulado = TotalCantidadProductos.reduce(
+            (total, valor) => total + valor,
+            0
+        );
 
         GraficoCantidad = generarGraficoDeBarra(
             document.getElementById("chartCantidad"),
             departamentos,
             "Cantidad Total",
             TotalCantidadProductos,
-            "Cantidad de productos vendidos por Departamento",
-            fechaInicio,
-            fechaFin,
+            `Total de productos vendidos: ${acumulado.toLocaleString("es-MX")}`,
             "#A1887F",
-            "#5D4037"
+            "#5D4037",
+            "Cantidad de productos vendidos por Departamento"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -174,20 +194,17 @@ async function generarGraficoIngreso(fechaInicio, fechaFin) {
         const data = await response.json();
         var departamentos = data.map((item) => item.Nombre);
         var TotalIngreso = data.map((item) => parseInt(item.TotalIngreso, 10));
-        // var Total = data.reduce((total, item) => {
-        //     return total + parseInt(item.TotalCantidadProductos, 10); // Suma de los productos vendidos
-        // }, 0);
+        var acumulado = TotalIngreso.reduce((total, valor) => total + valor, 0);
 
         GraficoIngreso = generarGraficoDeBarra(
             document.getElementById("chartIngresos"),
             departamentos,
             "Ingreso Total",
             TotalIngreso,
-            "Monto total de ingresos por Departamento",
-            fechaInicio,
-            fechaFin,
+            `Monto acumulado: $ ${acumulado.toLocaleString("es-MX")} MXN`,
             "#E57373",
-            "#C62828"
+            "#C62828",
+            "Monto total de ingresos por Departamento"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -207,17 +224,16 @@ async function generarGraficoVentas(fechaInicio, fechaFin) {
         const data = await response.json();
         var departamentos = data.map((item) => item.Nombre);
         var TotalVentas = data.map((item) => parseInt(item.TotalVentas, 10));
-
+        var acumulado = TotalVentas.reduce((total, valor) => total + valor, 0);
         GraficoVentas = generarGraficoDeBarra(
             document.getElementById("chartVentas"),
             departamentos,
             "Ventas Total",
             TotalVentas,
-            "Monto total de ventas por Departamento",
-            fechaInicio,
-            fechaFin,
+            `Monto acumulado: $ ${acumulado.toLocaleString("es-MX")} MXN`,
             "#FFB74D",
-            "#D84315"
+            "#D84315",
+            "Monto total de ventas por Departamento"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -230,10 +246,9 @@ function generarGraficoDeBarra(
     etiquetaDatos,
     datos,
     tituloGrafico,
-    fechaInicio,
-    fechaFin,
     color1 = "#00A3E0", // Primer color por defecto
-    color2 = "#FF9900" // Segundo color por defecto
+    color2 = "#FF9900",
+    subtitle
 ) {
     const coloresBarras = datos.map((_, index) => {
         return index % 2 === 0 ? color1 : color2; // Intercala entre color1 y color2
@@ -252,18 +267,18 @@ function generarGraficoDeBarra(
         },
         title: {
             text: tituloGrafico,
-            align: "center",
+            align: "left",
             style: {
-                fontSize: "20px",
+                fontSize: "25px",
                 fontWeight: "bold",
                 color: "#333",
             },
         },
         subtitle: {
-            text: `Período: ${fechaInicio} al ${fechaFin}`,
-            align: "center",
+            text: subtitle,
+            align: "left",
             style: {
-                fontSize: "14px",
+                fontSize: "16px",
                 color: "#666",
             },
         },
@@ -291,6 +306,11 @@ function generarGraficoDeBarra(
         },
         tooltip: {
             enabled: true,
+            y: {
+                formatter: function (val) {
+                    return val.toLocaleString("es-MX"); // Mostrar las ventas con dos decimales
+                },
+            },
         },
         legend: {
             show: false, // Desactiva la leyenda
@@ -306,8 +326,7 @@ function generarGraficoDePie(
     etiquetas,
     datos,
     tituloGrafico,
-    fechaInicio,
-    fechaFin
+    subtitulo
 ) {
     const opciones = {
         series: datos,
@@ -317,16 +336,16 @@ function generarGraficoDePie(
         },
         title: {
             text: tituloGrafico,
-            align: "center",
+            align: "left",
             style: {
-                fontSize: "20px",
+                fontSize: "25px",
                 fontWeight: "bold",
                 color: "#333",
             },
         },
         subtitle: {
-            text: `Período: ${fechaInicio} al ${fechaFin}`,
-            align: "center",
+            text: subtitulo,
+            align: "left",
             style: {
                 fontSize: "14px",
                 color: "#666",

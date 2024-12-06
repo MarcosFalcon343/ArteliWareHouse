@@ -47,9 +47,8 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link text-white">
+                <a href="{{route('sucursales.index')}}" class="nav-link text-white">
                     <i class="bi bi-shop"></i>
-
                     Sucursales
                 </a>
             </li>
