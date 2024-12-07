@@ -137,6 +137,4 @@
 
 @section('scripts')
 @vite('resources/js/graficoProducto.js')
-@vite('resources/js/patronesProductos.js')
-@vite('resources/js/patronesDimension3.js')
 @endsection

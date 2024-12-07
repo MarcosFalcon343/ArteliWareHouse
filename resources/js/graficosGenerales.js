@@ -142,8 +142,8 @@ async function generarGraficoMontoMetodoPago(fechaInicio, fechaFin) {
             MontoTotal,
             `Monto acumulado: $  ${acumulado.toLocaleString("es-MX")} MXN`,
             "Monto recaudado por cada tipo de metodo de pago",
-            "#E57373",
-            "#C62828"
+            "#D32F2F",
+            "#8D6E63"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -178,8 +178,8 @@ async function generarGraficoCantidadProductos(fechaInicio, fechaFin) {
             CantidadesTotales,
             `Total de productos vendidos: ${acumulado.toLocaleString("es-MX")}`,
             "Top 10 Productos Más Vendidos",
-            "#E57373",
-            "#C62828"
+            "#2196F3",
+            "#4CAF50"
         );
     } catch (error) {
         console.error("Error al obtener los datos:", error);
